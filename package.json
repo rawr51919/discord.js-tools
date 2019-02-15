@@ -1,0 +1,76 @@
+{
+  "_args": [
+    [
+      "discord.js-tools@0.0.19",
+      "/mnt/c/Colton/openscykohbot"
+    ]
+  ],
+  "_from": "discord.js-tools@0.0.19",
+  "_id": "discord.js-tools@0.0.19",
+  "_inBundle": false,
+  "_integrity": "sha512-2tBaiK+6CS3i5kn2/u460hrdy1AJd23EcrRj7EshA0L6iu9BG0/JB6baXS50zByJ8/Nu/XTQrQtox+DCpGtahg==",
+  "_location": "/discord.js-tools",
+  "_phantomChildren": {
+    "asynckit": "0.4.0",
+    "aws4": "1.6.0",
+    "caseless": "0.12.0",
+    "co": "4.6.0",
+    "combined-stream": "1.0.5",
+    "delayed-stream": "1.0.0",
+    "extend": "3.0.1",
+    "fast-deep-equal": "1.0.0",
+    "fast-json-stable-stringify": "2.0.0",
+    "forever-agent": "0.6.1",
+    "is-typedarray": "1.0.0",
+    "isstream": "0.1.2",
+    "json-schema-traverse": "0.3.1",
+    "json-stringify-safe": "5.0.1",
+    "jsprim": "1.4.1",
+    "mime-types": "2.1.17",
+    "oauth-sign": "0.8.2",
+    "punycode": "1.4.1",
+    "safe-buffer": "5.1.1",
+    "sshpk": "1.13.1",
+    "stringstream": "0.0.5",
+    "tunnel-agent": "0.6.0",
+    "uuid": "3.1.0"
+  },
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "discord.js-tools@0.0.19",
+    "name": "discord.js-tools",
+    "escapedName": "discord.js-tools",
+    "rawSpec": "0.0.19",
+    "saveSpec": null,
+    "fetchSpec": "0.0.19"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/discord.js-tools/-/discord.js-tools-0.0.19.tgz",
+  "_spec": "0.0.19",
+  "_where": "/mnt/c/Colton/openscykohbot",
+  "author": {
+    "name": "truexpixels"
+  },
+  "dependencies": {
+    "discord.js": "^11.2.1",
+    "regexworld": "github:zelak312/RegexWorld",
+    "request": "^2.83.0"
+  },
+  "description": "This package creates easy to use & configurable functions to be used with discord.js",
+  "keywords": [
+    "discord.js",
+    "helper",
+    "tools",
+    "functions"
+  ],
+  "license": "ISC",
+  "main": "app.js",
+  "name": "discord.js-tools",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.0.19"
+}
