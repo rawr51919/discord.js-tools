@@ -1,0 +1,24 @@
+{
+  "name": "discord.js-tools",
+  "version": "0.0.19",
+  "description": "This package creates easy to use & configurable functions to be used with discord.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coltongit/discord.js-tools.git"
+  },
+  "author": "truexpixels",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "regexworld": "github:coltongit/regexworld",
+    "request": "^2.88.0"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/coltongit/discord.js-tools/issues"
+  },
+  "homepage": "https://github.com/coltongit/discord.js-tools#readme"
+}
