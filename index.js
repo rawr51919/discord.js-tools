@@ -51,9 +51,9 @@ module.exports = {
                 return;
             }
 
-    if (messagecount < 1 || messagecount > 51) {
+    if (messagecount < 1 || messagecount > 50) {
       message.delete();
-      message.reply('pick a number **BETWEEN** 1 and 51')
+      message.reply('pick a number **BETWEEN** 1 and 50')
         .then(message => {
           message.delete(6000);
         })
