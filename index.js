@@ -41,12 +41,12 @@ module.exports = {
             return;
             }
             
-            if (!message.guild.member(message.author).hasPermission('MANAGE_MESSAGES')) {
+            if (!message.member.hasPermission('MANAGE_MESSAGES')) {
                 message.channel.send('You have Invalid Permissions!')
                 return;
             }
             
-            if (!message.guild.member(client.user).hasPermission('MANAGE_MESSAGES')) {
+            if (!guild.me.hasPermission('MANAGE_MESSAGES')) {
                 message.channel.send('I have Invalid Permissions!')
                 return;
             }
