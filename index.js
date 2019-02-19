@@ -61,7 +61,7 @@ module.exports = {
     }
 
     message.channel.fetchMessages({
-      limit: messagecount
+      limit: messagecount + 1
     }).then(messages => message.channel.bulkDelete(messages));
 
     },
