@@ -41,7 +41,7 @@ module.exports = {
             return;
             }
             
-            if (!message.member.hasPermission('MANAGE_MESSAGES')) {
+            if (!message.member.hasPermission('MANAGE_MESSAGES') && message.channel.type!=='dm') {
                 message.channel.send('You have Invalid Permissions!')
                 return;
             }
