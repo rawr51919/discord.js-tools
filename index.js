@@ -41,14 +41,18 @@ module.exports = {
             return;
             }
             
-            if (!message.member.hasPermission('MANAGE_MESSAGES') && message.channel.type!=='dm') {
-                message.channel.send('You have Invalid Permissions!')
-                return;
+            if (message.channel.type!=='dm') {
+                if (!message.author.hasPermission('MANAGE_MESSAGES')) {
+                    message.channel.send('You have Invalid Permissions!')
+                    return;
+                }
             }
-            
-            if (!message.guild.me.hasPermission('MANAGE_MESSAGES') && message.channel.type!=='dm') {
-                message.channel.send('I have Invalid Permissions!')
-                return;
+        
+            if (message.channel.type!=='dm') {
+                if (!message.guild.me.hasPermission('MANAGE_MESSAGES')) {
+                    message.channel.send('I have Invalid Permissions!')
+                    return;
+                }
             }
 
     if (messagecount < 1 || messagecount > 50) {
