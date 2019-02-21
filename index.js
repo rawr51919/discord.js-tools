@@ -46,9 +46,6 @@ module.exports = {
                     message.channel.send('You have Invalid Permissions!')
                     return;
                 }
-            }
-        
-            if (message.channel.type!=='dm') {
                 if (!message.guild.me.hasPermission('MANAGE_MESSAGES')) {
                     message.channel.send('I have Invalid Permissions!')
                     return;
