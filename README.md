@@ -45,7 +45,7 @@ console.log(tools.arrayRandom(['1', '2']))
 ```js
 tools.purge(message, client, amount)
 
-//You can choose an amount between 1 and 50.
+//You can choose an amount between 1 and 99.
 //Client is the variable you have for new Discord.Client();
 //Message is the variable you use for the message event!
 ```
