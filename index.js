@@ -52,22 +52,20 @@ module.exports = {
                 }
             }
 
-    if (messagecount >= 1 || messagecount <= 99) {
+    if (messagecount < 1 || messagecount > 99) {
       message.delete();
-      return;
-    } else {
-      message.reply('pick a number **BETWEEN** 1 and 99')
+      message.reply('pick a number **BETWEEN** 1 and 100')
         .then(message => {
           message.delete(6000);
         })
       return;
     }
 
-    message.channel.fetchMessages({
+     message.channel.fetchMessages({
       limit: messagecount + 1
     }).then(messages => message.channel.bulkDelete(messages));
 
-    },
+     },
 
     messageCollector: function(oldmsg, message, reaction, time = '20000') {
 
