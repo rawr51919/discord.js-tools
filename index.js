@@ -52,7 +52,7 @@ module.exports = {
                 }
             }
 
-    if (messagecount <= 1 || messagecount >= 99) {
+    if (messagecount >= 1 || messagecount <= 99) {
       message.delete();
       return;
     } else {
