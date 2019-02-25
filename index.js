@@ -42,12 +42,16 @@ module.exports = {
             }
             
             if (message.channel.type!=='dm') {
-                if (!message.member.hasPermission('MANAGE_MESSAGES')) {
-                    message.channel.send('You have Invalid Permissions!')
+                if (!message.member.hasPermission('MANAGE_MESSAGES') && message.guild.me.hasPermission('MANAGE_MESSAGES')) {
+                    message.channel.send('You have invalid permissions!')
                     return;
                 }
-                if (!message.guild.me.hasPermission('MANAGE_MESSAGES')) {
-                    message.channel.send('I have Invalid Permissions!')
+                if (!message.guild.me.hasPermission('MANAGE_MESSAGES') && message.member.hasPermission('MANAGE_MESSAGES')) {
+                    message.channel.send('I have invalid permissions!')
+                    return;
+                }
+                if (!message.member.hasPermission('MANAGE_MESSAGES') && !message.guild.me.hasPermission('MANAGE_MESSAGES')) {
+                    message.channel.send('Both you and I have invalid permissions!')
                     return;
                 }
             }
