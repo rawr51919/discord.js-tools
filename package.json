@@ -17,6 +17,9 @@
     "request": "^2.88.0",
     "genversion": "^2.1.1"
   },
+  "scripts": {
+  "build": "genversion version.js"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/coltongit/discord.js-tools/issues"
