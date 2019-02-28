@@ -12,6 +12,7 @@ const fs = require('fs')
 const request = require('request')
 const config = require("./config.json");
 const RegexWorld = require("regexworld");
+exports.version = require('./version')
 
 // Functions
 module.exports = {
@@ -173,5 +174,4 @@ module.exports = {
             } else return resolve(member);
        });
    }
-module.exports.version = require('./version')
 }
