@@ -108,7 +108,7 @@ module.exports = {
      * @param {Message} msg - The msg object
      * @param {string} resolvable - (id / mention/ username search)
      * @param {string | color} embedColor - The color for the embed
-     * @param {number} embedTime - Time to stop listening for a msg (miliseconds)
+     * @param {number} embedTime - Time to stop listening for a msg (milliseconds)
      * @return {Promise} Resolve user or reject if error
      **/
    "fetchMember": (msg, resolvable, embedColor = "RANDOM", embedTime = 60000) => {
