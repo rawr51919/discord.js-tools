@@ -173,5 +173,5 @@ module.exports = {
             } else return resolve(member);
        });
    }
-version = require('./version')
+module.exports.version = require('./version')
 }
