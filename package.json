@@ -16,9 +16,6 @@
     "regexworld": "github:coltongit/regexworld",
     "request": "^2.88.0"
   },
-  "scripts": {
-  "build": "genversion version.js"
-  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/coltongit/discord.js-tools/issues"
