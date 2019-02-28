@@ -21,7 +21,7 @@ var tools = require('discord.js-tools');
 ```
 
 ### Required packages
-- [discord.js](https://www.npmjs.com/package/discord.js) the core of this project (`npm install discord.js --save`)
+- [discord.js](https://www.npmjs.com/package/discord.js), the core of this project (`npm install discord.js --save`)
 
 ## Functions
 
@@ -38,7 +38,7 @@ tools.messageCollector(message, 'question', 'answer')
 ```js
 console.log(tools.arrayRandom(['1', '2']))
 
-//You can replace 1 or 2 by anthing you want and extend it so far as you want!
+//You can replace 1 or 2 with anything you want and extend it as far as you want!
 ```
 
 **Purge**
@@ -56,14 +56,14 @@ tools.purge(message, client, amount)
 msg - The msg object
 args - (id / mention/ username search)
 embedColor - The color for the embed
-embedTime - Time to stop listening for a msg (miliseconds)
+embedTime - Time to stop listening for a msg (milliseconds)
 return a promise
 **/
 tools.fetchMember(message, args, embedColor, embedTime).then(member => {
    //a member as been found, you can now use member
    console.log(member);
 }).catch(err => {
-   //an error happen you should log it!
+   //an error happened, you should log it!
    console.log(err);
 });
 
@@ -76,7 +76,7 @@ var tools = require('discord-js-tools')
 var prefix = {};
 
 client.on('message', message => {
-tools.messageCollector(message, 'do you like spikey yes or no?', 'i like him too!')
+tools.messageCollector(message, 'do you like spikey? yes or no?', 'i like him too!')
 
 tools.arrayRandom(['1', '2', '3']).then({i =>
 console.log(i)
