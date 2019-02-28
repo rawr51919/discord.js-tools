@@ -14,8 +14,7 @@
   "dependencies": {
     "discord.js": "^11.4.2",
     "regexworld": "github:coltongit/regexworld",
-    "request": "^2.88.0",
-    "genversion": "^2.1.1"
+    "request": "^2.88.0"
   },
   "scripts": {
   "build": "genversion version.js"
