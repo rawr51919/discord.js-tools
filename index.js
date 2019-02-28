@@ -12,7 +12,7 @@ const fs = require('fs')
 const request = require('request')
 const config = require("./config.json");
 const RegexWorld = require("regexworld");
-exports.version = require('./version')
+exports.version = require("./version");
 
 // Functions
 module.exports = {
