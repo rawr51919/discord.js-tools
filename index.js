@@ -15,7 +15,9 @@ const RegexWorld = require("regexworld");
 
 // Functions
 module.exports = {
+
     version: require('./package.json').version,
+
     embed: function(channel, message, deleteTimer, hexColor) {
         channel.send({
             embed: {
