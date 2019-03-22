@@ -13,6 +13,9 @@
 </div>
 
 ## Installation
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/coltongit/discord.js-tools.svg)](https://greenkeeper.io/)
+
 **Node.js 6.0.0 or newer is required.**  
 Ignore any warnings about unmet peer dependencies, as they're all optional.
 
