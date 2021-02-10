@@ -12,7 +12,7 @@
   },
   "author": "truexpixels",
   "dependencies": {
-    "discord.js": "^11.4.2",
+    "discord.js": "^12.5.1",
     "regexworld": "github:coltongit/regexworld",
     "request": "^2.88.0"
   },
