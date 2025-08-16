@@ -3,22 +3,29 @@
   "version": "0.0.19",
   "description": "This package creates easy to use & configurable functions to be used with discord.js",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+    "validate": "npx eslint .",
+    "test": "npx jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coltongit/discord.js-tools.git"
+    "url": "git+https://github.com/rawr51919/discord.js-tools.git"
   },
   "author": "truexpixels",
   "dependencies": {
-    "discord.js": "^14.0.0",
-    "regexworld": "github:coltongit/regexworld",
-    "request": "^2.88.0"
+    "discord.js": "^14.21.0",
+    "regexworld": "github:rawr51919/regexworld",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@jest/globals": "^30.0.5",
+    "globals": "^16.3.0"
   },
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/coltongit/discord.js-tools/issues"
+    "url": "https://github.com/rawr51919/discord.js-tools/issues"
   },
-  "homepage": "https://github.com/coltongit/discord.js-tools#readme"
+  "homepage": "https://github.com/rawr51919/discord.js-tools#readme"
 }

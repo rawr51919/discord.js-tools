@@ -1,1 +1,1 @@
-declare module 'discord.js-tools'
+declare module "discord.js-tools";

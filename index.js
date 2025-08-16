@@ -1,178 +1,155 @@
+// discord.js-tools
 // Thank you for using discord.js-tools!
-// You can edit the configuration for some defaults in config.json
+// You can edit some defaults in config.json
 
-// Made for discord.js
+const { defaultEmbedColorHEX } = require("./config.json");
+const { setStr } = require("regexworld");
+const packageJson = require("./package.json");
 
-// Functions: MessageCollector
-
-// Require Packages
-
-// Fetch Config
-const fs = require('fs')
-const request = require('request')
-const config = require("./config.json");
-const RegexWorld = require("regexworld");
-
-// Functions
 module.exports = {
+  version: packageJson.version,
 
-    version: require('./package.json').version,
+  // --- embed ---
+  embed: async function (channel, message, deleteTimer, hexColor) {
+    // Sends a message with optional embed color and auto-delete timer
+    const msg = await channel.send({
+      embed: {
+        description: message,
+        color: hexColor || defaultEmbedColorHEX
+      }
+    });
+    if (!isNaN(deleteTimer * 1000)) await msg.delete(deleteTimer * 1000);
+  },
 
-    embed: function(channel, message, deleteTimer, hexColor) {
-        channel.send({
-            embed: {
-                description: message,
-                color: hexColor || config.defaultEmbedColorHEX
-            }
-        }).then(msg => {
-            if (!isNaN(deleteTimer * 1000)) msg.delete(deleteTimer * 1000)
-        })
-
-    },
-    
-    purge: function(message, client, amount) {
- var messagecount = parseInt(amount)
- if (!amount || !message || !client) {
-     console.log('message or amount or client is not defined!')
- return
-     
- }
- 
- if (isNaN(messagecount)) {
-                console.log('AMOUNT is NOT A NUMBER');
-            return;
-            }
-            
-            if (message.channel.type!=='dm') {
-                if (!message.member.hasPermission('MANAGE_MESSAGES') && message.guild.me.hasPermission('MANAGE_MESSAGES')) {
-                    message.channel.send('You have invalid permissions!')
-                    return;
-                }else if (!message.guild.me.hasPermission('MANAGE_MESSAGES') && message.member.hasPermission('MANAGE_MESSAGES')) {
-                    message.channel.send('I have invalid permissions!')
-                    return;
-                }else if (!message.member.hasPermission('MANAGE_MESSAGES') && !message.guild.me.hasPermission('MANAGE_MESSAGES')) {
-                    message.channel.send('Both you and I have invalid permissions!')
-                    return;
-                }
-            }
-
-    if (messagecount < 1 || messagecount > 99) {
-      message.delete();
-      message.reply('pick a number **BETWEEN** 1 and 99')
-        .then(message => {
-          message.delete(6000);
-        })
+  // --- purge ---
+  purge: async function (message, client, amount) {
+    // Bulk delete messages from a channel
+    const messagecount = parseInt(amount);
+    if (!amount || !message || !client) {
+      console.log("message or amount or client is not defined!");
       return;
     }
 
-     message.channel.fetchMessages({
-      limit: messagecount + 1
-    }).then(messages => message.channel.bulkDelete(messages));
+    if (isNaN(messagecount)) {
+      console.log("AMOUNT is NOT A NUMBER");
+      return;
+    }
 
-     },
+    if (message.channel.type !== "dm") {
+      if (!message.member.hasPermission("MANAGE_MESSAGES") && message.guild.me.hasPermission("MANAGE_MESSAGES")) {
+        await message.channel.send("You have invalid permissions!");
+        return;
+      } else if (!message.guild.me.hasPermission("MANAGE_MESSAGES") && message.member.hasPermission("MANAGE_MESSAGES")) {
+        await message.channel.send("I have invalid permissions!");
+        return;
+      } else if (!message.member.hasPermission("MANAGE_MESSAGES") && !message.guild.me.hasPermission("MANAGE_MESSAGES")) {
+        await message.channel.send("Both you and I have invalid permissions!");
+        return;
+      }
+    }
 
-    messageCollector: function(oldmsg, message, reaction, time = '20000') {
+    if (messagecount < 1 || messagecount > 99) {
+      await message.delete();
+      const replyMsg = await message.reply("pick a number **BETWEEN** 1 and 99");
+      await replyMsg.delete(6000);
+      return;
+    }
 
-        oldmsg.channel.send(`${message}`)
-            .then(() => {
-                oldmsg.channel.awaitMessages(response => ['yes', 'no'].includes(response.content.toLowerCase()) && response.author.id === oldmsg.author.id, {
-                        max: 1,
-                        time: `${time}`,
-                        errors: ['time'],
-                    })
-                    .then((collected) => {
+    const messages = await message.channel.messages.fetch({ limit: messagecount + 1 });
+    await message.channel.bulkDelete(messages);
+  },
 
-                        if (collected.first().content == 'yes') {
-                            oldmsg.channel.send(`${reaction}`)
-                        }
+  // --- messageCollector ---
+  messageCollector: async function (oldmsg, message, reaction, time = "20000") {
+    // Ask a yes/no question and react based on answer
+    await oldmsg.channel.send(`${message}`);
+    try {
+      const collected = await oldmsg.channel.awaitMessages(
+        response => ["yes", "no"].includes(response.content.toLowerCase()) && response.author.id === oldmsg.author.id,
+        { max: 1, time: parseInt(time), errors: ["time"] }
+      );
 
-                        if (collected.first().content == 'no') {
-                            return console.log('Nope')
-                        }
+      if (collected.first().content === "yes") await oldmsg.channel.send(`${reaction}`);
+      if (collected.first().content === "no") return console.log("Nope");
+    } catch {
+      await oldmsg.channel.send("Time ran out!");
+    }
+  },
 
-                    })
-                    .catch(() => {
-                        oldmsg.channel.send(`Time ran out!`);
-                    });
-            });
+  // --- arrayRandom ---
+  arrayRandom: function (myArray) {
+    // Returns a random element from an array
+    return myArray[Math.floor(Math.random() * myArray.length)];
+  },
 
+  // --- fetchMember ---
+  fetchMember: (msg, resolvable, embedColor = "RANDOM", embedTime = 60000) => {
+    // Parse a mention like <@123>
+    const parseMention = (text) => {
+      return new Promise((resolve, reject) => {
+        setStr(text)
+          .setRegex(/<.(\d+)>/gi)
+          .regexStart(null, (err, result) => {
+            if (err) return reject(err);
+            if (result[0][1]) return resolve(msg.guild.members.cache.get(result[0][1]) || null);
+            resolve(null);
+          });
+      });
+    };
 
-    },
+    // Ask the user to select from multiple matches
+    const askUserToSelect = async (arr) => {
+      const embed = {
+        title: "Member search",
+        color: embedColor,
+        description: "Found more than 1 user. Select the correct user by sending the number. Ex: 2",
+        fields: arr.map((mem, ind) => ({
+          name: `**${ind + 1}**`,
+          value: `${mem.user.username}(${mem.user.id})`
+        })),
+      };
 
-    arrayRandom: function(myArray) {
-        return myArray[Math.floor(Math.random() * myArray.length)];
-    },
-    
-    
-    /**
-     * Fetch a member from an id / mention / username search
-     * @param {Message} msg - The msg object
-     * @param {string} resolvable - (id / mention/ username search)
-     * @param {string | color} embedColor - The color for the embed
-     * @param {number} embedTime - Time to stop listening for a msg (milliseconds)
-     * @return {Promise} Resolve user or reject if error
-     **/
-   "fetchMember": (msg, resolvable, embedColor = "RANDOM", embedTime = 60000) => {
-       return new Promise(async(resolve, reject) => {
-            let member = msg.guild.members.get(resolvable);
-            if(member) return resolve(member);
-            
-            if (resolvable.toLowerCase().startsWith("<")) {
-                RegexWorld
-                    .setStr(resolvable)
-                    .setRegex(/<.(\d+)>/gi)
-                    .regexStart(null, (err, result) => {
-                        if (err) return reject(err);
-                        if (result[0][1]) {
-                            member = msg.guild.members.get(result[0][1]);
-                        }
-                    });
+      const msgToDel = await msg.channel.send({ embed });
+      try {
+        const collected = await msg.channel.awaitMessages(
+          m => m.author.id === msg.author.id,
+          { max: 1, time: embedTime, errors: ["time"] }
+        );
+        await msgToDel.delete();
+        const index = parseInt(collected.first().content) - 1;
+        if (!arr[index]) throw new Error("This is not a valid number or a wrong number");
+        return arr[index];
+      } catch {
+        await msgToDel.delete();
+        throw new Error("Time ran out!");
+      }
+    };
 
-                if (member) return resolve(member);
-            }
-            
-            member = msg.guild.members.filterArray(m => {
-                return m.user.username.toLowerCase().startsWith(resolvable.toLowerCase());
-            });
-            
-            if(Array.isArray(member)) {
-                if(member.length == 0) return reject("Couldn't found someone with this username");
-                if(member.length == 1) return resolve(member[0]);
-                
-                let embed = {
-                    "title": "Member search",
-                    "color": embedColor,
-                    "description": "Found more then 1 user for this search. Select the good user by sending the number for this user. Ex: 2",
-                    "fields": []
-                }
-                
-                member.forEach((mem, ind) => {
-                    embed.fields.push({
-                        "name": `**${ind + 1}**`,
-                        "value": `${mem.user.username}(${mem.user.id})`
-                    });
-                });
-                
-                let msgToDel = await msg.channel.send({embed});
-                
-                let number = await msg.channel.awaitMessages(m => {
-                    return m.author.id == msg.author.id;
-                },{
-                    "max": 1,
-                    "time": embedTime,
-                    "errors": ["time"]
-                });
-                
-                msgToDel.delete();
-                
-                if(!number) return reject("Time ran out!");
-                
-                number = parseInt(number.first().content) - 1;
-                
-                if(!member[number]) return reject("This is not a valid number or a wrong number");
-                
-                return resolve(member[number]);
-            } else return resolve(member);
-       });
-   }
-}
+    // Main async logic for fetchMember
+    const fetchMemberAsync = async () => {
+      // Direct ID
+      let member = msg.guild.members.cache.get(resolvable);
+      if (member) return member;
+
+      // Mention
+      if (resolvable.toLowerCase().startsWith("<")) {
+        member = await parseMention(resolvable);
+        if (member) return member;
+      }
+
+      // Username search
+      const membersMap = msg.guild.members.cache.filter(m =>
+        m.user.username.toLowerCase().startsWith(resolvable.toLowerCase())
+      );
+      const arr = Array.from(membersMap.values());
+
+      if (arr.length === 0) throw new Error("Couldn't find someone with this username");
+      if (arr.length === 1) return arr[0];
+
+      // Multiple matches found
+      return await askUserToSelect(arr);
+    };
+
+    return fetchMemberAsync();
+  }
+};
