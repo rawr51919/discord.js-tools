@@ -15,8 +15,7 @@
   "author": "truexpixels",
   "dependencies": {
     "discord.js": "^14.21.0",
-    "regexworld": "github:rawr51919/regexworld",
-    "request": "^2.88.2"
+    "regexworld": "github:rawr51919/regexworld"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
